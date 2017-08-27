@@ -1,0 +1,14 @@
+# ignore build artifacts
+*.d
+*.o
+*.bin
+*.hex
+*.elf
+*.axf
+*.map
+
+# ignore local makefile settings
+src/local.mk
+
+# track payloads
+!src/payloads/*.bin
