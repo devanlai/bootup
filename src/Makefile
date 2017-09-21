@@ -24,6 +24,7 @@ BOOTUP_OFFSET ?= 8192
 
 include targets.mk
 include payloads.mk
+include uzlib.mk
 
 SRCS := $(wildcard *.c)
 SRCS += $(wildcard $(TARGET_COMMON_DIR)/*.c)

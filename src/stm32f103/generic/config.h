@@ -20,6 +20,7 @@
 #define CONFIG_H_INCLUDED
 
 #define FLASH_PAGE_SIZE  1024
+#define FLASH_SIZE_OVERRIDE 0x20000
 
 #ifndef HAVE_LED
 #define HAVE_LED 0

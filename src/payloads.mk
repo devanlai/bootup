@@ -42,8 +42,8 @@ endif
 
 ifdef PAYLOAD_BIN_SRC
 payload.bin: $(PAYLOAD_BIN_SRC)
-	@echo Using payload $(PAYLOAD_BIN_SRC)
-	$(Q)cp $(PAYLOAD_BIN_SRC) $@
+	@echo Using reverse deflated payload $(PAYLOAD_BIN_SRC)
+	$(Q)./compress_image.py --reverse $^ > $@
 endif
 
 ifndef PAYLOAD

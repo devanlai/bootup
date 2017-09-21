@@ -1,3 +1,7 @@
 [submodule "libopencm3"]
 	path = libopencm3
 	url = git@github.com:libopencm3/libopencm3.git
+[submodule "uzlib"]
+	path = uzlib
+	url = git@github.com:devanlai/uzlib.git
+	ignore = untracked
