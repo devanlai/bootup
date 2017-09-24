@@ -3,7 +3,34 @@ bootup is a bootloader updater to help update flash-resident STM32F10x bootloade
 
 Once loaded into the device via the existing bootloader, bootup copies its code into RAM and reflashes the device with the updated bootloader firmware.
 
-The payload size can be larger than the original bootloader - bootup will take care of copying the flash pages in the correct order. This can be useful to update the bootloader and the firmware in a single step. bootup itself only adds about 3KiB of overhead.
+The payload size can be larger than the original bootloader - bootup will take care of copying the flash pages in the correct order. This can be useful to update the bootloader and the firmware in a single step. bootup itself only adds about 8KiB of overhead.
+
+# Compression
+On this experimental branch, the payload is compressed during the build process and decompressed by bootup at runtime.
+This allows bootup to deliver firmware updates that are too big for the existing bootloader.
+
+The final decompressed image may overlap with bootup's compressed firmware image.
+bootup decompresses the image into flash starting from the end, which minimizes the number of pages of compressed data that need to be backed up to RAM during decompression.
+
+    0
+    +------------------+ <- Start reading here
+    | compressed image |
+    +------------------+
+    +------------------------------------------------------------------+ <- Start writing here
+    | decompressed image                                               |
+    +------------------------------------------------------------------+
+
+In practice, the compressed image will be offset from the final decompressed image destination, because the bootloader and the bootup firmware takes up space:
+
+    0            0x2000   0x4000
+    +------------+--------+------------------+ <- Start reading here
+    | bootloader | bootup | compressed image |
+    +------------+--------+------------------+
+    +------------------------------------------------------------------+ <- Start writing here
+    | decompressed image                                               |
+    +------------------------------------------------------------------+
+
+As long as the offset is small, bootup can handle the extra overlap by buffering those extra pages to RAM.
 
 ## Configuration
 The default linker script assumes your bootloader loads the application at 0x08002000 and that the bootloader resides at 0x08000000.
@@ -49,8 +76,10 @@ Here is an example `local.mk` that overrides the default hardware target and pay
     PAYLOAD_BIN_SRC ?= /my/new/firmware.bin
 
 ## Licensing
-All contents of the bootup project are licensed under terms that are compatible with the terms of the GNU Lesser General Public License version 3.
+The core bootup code is licensed under the ISC license.
 
-Non-libopencm3 related portions of the bootup project are licensed under the less restrictive ISC license, except where otherwise specified in the headers of specific files.
+uzlib is licensed under... I'm not sure - consult its README and headers for details.
+
+libopencm3 related portions of the bootup project are licensed under the LGPLv3.
 
 See the LICENSE file for full details.

@@ -26,6 +26,9 @@ License version 3:
 * src/stm32f103/stm32f103x8.ld
 * src/stm32f103/exec-from-ram.ld
 
+uzlib, included as a submodule and statically linked as part of
+the build process, is separately licensed.
+
 libopencm3, included as a submodule and statically linked as part
 of the build process, is separately licensed under the LGPLv3.
 
