@@ -23,7 +23,8 @@ Makefile and linker script are derived from the libopencm3 examples
 template and are licensed under the GNU Lesser General Public
 License version 3:
 * src/rules.mk
-* src/stm32f103/stm32f103x8-ram-2k.ld
+* src/stm32f103/stm32f103x8.ld
+* src/stm32f103/exec-from-ram.ld
 
 libopencm3, included as a submodule and statically linked as part
 of the build process, is separately licensed under the LGPLv3.
