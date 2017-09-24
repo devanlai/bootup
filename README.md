@@ -59,6 +59,13 @@ To build a [dapboot](https://github.com/devanlai/dapboot) updater, you can inste
     make TARGET=BLUEPILL PAYLOAD=DAPBOOT
     dfu-util -d 1209:db42 -D bootup.bin
 
+Building and flashing a [Black Magic Probe](https://github.com/blacksphere/blackmagic) STLink update:
+
+    make clean
+    wget http://builds.blacksphere.co.nz/blackmagic/blackmagic-stlink.bin
+    make TARGET=STLINK PAYLOAD_BIN_SRC=blackmagic-stlink.bin PAYLOAD_TARGET=0x08002000
+    dfu-util -d 1d50:6017 -s 0x08002000:leave -D bootup.bin
+
 ### Hardware Targets
 | Target Name | Description | Link |
 | ----------- | ----------- |----- |
