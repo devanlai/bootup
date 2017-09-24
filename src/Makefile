@@ -20,6 +20,7 @@ BINARY = bootup
 OPENCM3_DIR = ../libopencm3
 
 TARGET ?= STM32F103
+BOOTUP_OFFSET ?= 8192
 
 include targets.mk
 include payloads.mk
@@ -66,3 +67,8 @@ CPPFLAGS += -I.
 # Add target config directory to the header search path
 CPPFLAGS += -I$(TARGET_COMMON_DIR)/
 CPPFLAGS += -I$(TARGET_SPEC_DIR)/
+
+# Pass the payload target address through, if provided
+ifdef PAYLOAD_TARGET
+	DEFS += -DPAYLOAD_TARGET=$(PAYLOAD_TARGET)
+endif

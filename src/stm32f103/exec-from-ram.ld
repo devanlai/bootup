@@ -19,14 +19,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Linker script for STM32F103x8, 64k flash, 20k RAM. */
+/* Common linker script settings to execute most code from RAM */
 
-/* Define memory regions. */
-MEMORY
-{
-	rom (rx) : ORIGIN = 0x08002000, LENGTH = 56K
-	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
-}
 
 /* Enforce emission of the vector table. */
 EXTERN (vector_table)

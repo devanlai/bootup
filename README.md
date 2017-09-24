@@ -8,9 +8,13 @@ The payload size can be larger than the original bootloader - bootup will take c
 ## Configuration
 The default linker script assumes your bootloader loads the application at 0x08002000 and that the bootloader resides at 0x08000000.
 
-To override the application address, modify the linker script [stm32f103x8-ram-2k.ld](src/stm32f103x8-ram-2k.ld)
+To override the address that bootup will run from, define `BOOTUP_OFFSET` to select the linker script:
 
-To override the bootloader address, define the `PAYLOAD_TARGET` symbol.
+    make BOOTUP_OFFSET=16384
+
+To override the address that bootup will write the new bootloader to, define the `PAYLOAD_TARGET` symbol, e.g:
+
+    make PAYLOAD_TARGET=0x08002000
 
 The `TARGET` variable sets the hardware platform, which primarily determines which LEDs will blink.
 
